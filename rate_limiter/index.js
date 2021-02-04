@@ -4,10 +4,20 @@ const rateLimiter = require('./limiter.js');
 
 const app = express()
 
+require('dotenv').config();
+
 app.use(rateLimiter);
+
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
-const pool = new pg.Pool()
+const pool = new pg.Pool({
+  host:process.env.PGHOST, 
+  port:process.env.PGPORT, 
+  database: process.env.PGDATABASE, 
+  user: process.env.PGUSER, 
+  password: process.env.PGPASSWORD
+});
+console.log(process.env.PGHOST)
 
 const queryHandler = (req, res, next) => {
   pool.query(req.sqlQuery).then((r) => {
