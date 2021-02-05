@@ -14,7 +14,7 @@ const LandingPage = () => {
                 <Button style={{margin: "5%"}} variant="primary" size="lg" onClick={() => {history.push("/statsDaily")}}>Daily Statistics</Button>
                 <Button style={{margin: "5%"}} variant="primary" size="lg" onClick={() => {history.push("/statsHourly")}}>Hourly Statistics</Button>
                 <Button style={{margin: "5%"}} variant="primary" size="lg" onClick={() => {history.push("/eventsDaily")}}>Daily Events</Button>
-                <Button style={{margin: "5%"}} variant="primary" size="lg" onClick={() => {history.push("/eventsDaily")}}>Daily Events</Button>
+                <Button style={{margin: "5%"}} variant="primary" size="lg" onClick={() => {history.push("/eventsHourly")}}>Hourly Events</Button>
             </div>
         </div>
     )

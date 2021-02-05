@@ -15,7 +15,7 @@ const HourlyStats = () => {
     const [ revenueFuse, setRF] = useState('');
   
     const addInformation = () => {
-        axios.get("Eqworksyifei-env.eba-58pwepb4.eu-west-1.elasticbeanstalk.com/stats/hourly").then((res) => {
+        axios.get(process.env.REACT_APP_HOURLYSTATS).then((res) => {
           if(res.data){
             setProp(res.data);
             setDF(new Fuse(res.data, {
