@@ -1,0 +1,1 @@
+web: redis-server & npm run dev & wait -n
