@@ -6,6 +6,11 @@ const app = express()
 
 require('dotenv').config();
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.use(rateLimiter);
 
 // configs come from standard PostgreSQL env vars
@@ -17,7 +22,6 @@ const pool = new pg.Pool({
   user: process.env.PGUSER, 
   password: process.env.PGPASSWORD
 });
-console.log(process.env.PGHOST)
 
 const queryHandler = (req, res, next) => {
   pool.query(req.sqlQuery).then((r) => {
@@ -26,7 +30,6 @@ const queryHandler = (req, res, next) => {
 }
 
 app.get('/', (req, res, next) => {
-  console.log("WORKING")
   res.send('Welcome to EQ Works 😎')
 })
 

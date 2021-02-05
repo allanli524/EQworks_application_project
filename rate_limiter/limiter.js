@@ -24,7 +24,6 @@ const rateLimiter = ( req, res, next ) => {
                   tokens: tokens
                 };
                 redisClient.set(req.ip, JSON.stringify(newRecord));
-                console.log("created" + req.ip);
                 next();
             } else {
 
@@ -49,7 +48,6 @@ const rateLimiter = ( req, res, next ) => {
                   });
                 } else {
                     //if enough tokens, token - 1 and access granted
-                    console.log(data.tokens);
                     data.tokens = data.tokens - 1;
                 }
                 redisClient.set(req.ip, JSON.stringify(data));
@@ -58,7 +56,6 @@ const rateLimiter = ( req, res, next ) => {
                 }
             }
           });
-          console.log("got here");
     } catch (err) {
         next(err);
     }
