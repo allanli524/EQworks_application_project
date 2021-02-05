@@ -1,10 +1,13 @@
 const redis = require('redis');
 const moment = require('moment');
+require('dotenv').config();
 
 //This rate limiter uses the token bucket algorithm
 //Using redis to store client and tokens
-const redisClient = redis.createClient();
-
+const redisClient = redis.createClient({
+  host: process.env.REDISHOST,
+  port: process.env.REDISPORT,
+  password: process.env.REDISPASS});
 //default values (interval in seconds)
 const refreshInterval = 20;
 const tokens = 5;
