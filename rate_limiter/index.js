@@ -1,16 +1,17 @@
 const express = require('express');
 const pg = require('pg');
 const rateLimiter = require('./limiter.js');
+const cors = require('cors');
 
 const app = express()
 
 require('dotenv').config();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+app.use(cors());
 app.use(rateLimiter);
 
 // configs come from standard PostgreSQL env vars
@@ -20,11 +21,13 @@ const pool = new pg.Pool({
   port:process.env.PGPORT, 
   database: process.env.PGDATABASE, 
   user: process.env.PGUSER, 
-  password: process.env.PGPASSWORD
+  password: process.env.PGPASSWORD,
 });
 
 const queryHandler = (req, res, next) => {
+  console.log("got here")
   pool.query(req.sqlQuery).then((r) => {
+    console.log(r.rows)
     return res.json(r.rows || [])
   }).catch(next)
 }
